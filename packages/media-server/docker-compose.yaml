@@ -91,6 +91,7 @@ services:
 
   plex:
     container_name: plex
+    hostname: plex-server
     image: plexinc/pms-docker
     restart: unless-stopped
     dns: 8.8.8.8
@@ -107,6 +108,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+      - PLEX_CLAIM=<claimToken>
     volumes:
       - /docker/appdata/plex/config:/config
       - /docker/appdata/plex/transcode:/transcode
