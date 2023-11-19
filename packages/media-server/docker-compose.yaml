@@ -1,0 +1,96 @@
+version: "3.7"
+services:
+  # flaresolverr is a proxy to help bypass Cloudflare and DDoS-GUARD protection
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=Europe/London
+    ports:
+      - "${PORT:-8191}:8191"
+    dns: 8.8.8.8
+    restart: unless-stopped    
+
+  # site/rss indexer that can be connected to sonarr & radarr
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /docker/appdata/prowlarr:/config
+    ports:
+      - 9696:9696
+    dns: 8.8.8.8
+    restart: unless-stopped    
+
+  radarr:
+    container_name: radarr
+    image: cr.hotio.dev/hotio/radarr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    ports:
+      - 7878:7878
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    dns: 8.8.8.8
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/appdata/radarr:/config
+      - /data:/data:rw
+
+  sonarr:
+    container_name: sonarr
+    image: cr.hotio.dev/hotio/sonarr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    ports:
+      - 8989:8989
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    dns: 8.8.8.8
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/appdata/sonarr:/config
+      - /data:/data:rw
+
+  qbittorrent:
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - QBT_EULA=accept
+      - TZ=Europe/London
+    image: qbittorrentofficial/qbittorrent-nox:latest
+    ports:
+      # for bittorrent traffic
+      - 6881:6881/tcp
+      - 6881:6881/udp
+      # for WebUI
+      - 8080:8080/tcp
+    dns: 8.8.8.8
+    read_only: true
+    restart: unless-stopped
+    tmpfs:
+      - /tmp
+    tty: true
+    volumes:
+      - /docker/appdata/qbittorrent:/config
+      - /data/downloads:/data/downloads:rw
+    
+
+networks:
+  default:
+    name: media-server-bridge
+    driver: bridge
