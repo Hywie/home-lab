@@ -106,6 +106,20 @@ services:
       - /data/media/movies:/movies
     restart: unless-stopped
 
+  overseerr:
+    image: sctx/overseerr:latest
+    dns: 8.8.8.8
+    container_name: overseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Europe/London
+      - PORT=5055
+    ports:
+      - 5055:5055
+    volumes:
+      - /docker/appdata/overseerr:/app/config
+    restart: unless-stopped
+
 networks:
   default:
     name: media-server-bridge
