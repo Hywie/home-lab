@@ -1,0 +1,8 @@
+{
+    "name": "media-serve-stack",
+    "devDependencies": {},
+    "scripts": {
+      "build": "tsc index.ts --outDir dist",
+      "compose-up": "docker-compose up -d"
+    }
+  }
