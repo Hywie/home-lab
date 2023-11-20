@@ -5,13 +5,13 @@ volumes:
   media-data:
     driver_opts:
       type: "nfs"
-      o: "addr=192.168.0.123,nfsvers=4"
+      o: "addr=192.168.0.123,nfsvers=4,nolock,soft,rw"
       device: ":/media-data"
 
   torrent-downloads:
     driver_opts:
       type: "nfs"
-      o: "addr=192.168.0.123,nfsvers=4"
+      o: "addr=192.168.0.123,nfsvers=4,nolock,soft,rw"
       device: ":/media-data/downloads"
 
 services:
