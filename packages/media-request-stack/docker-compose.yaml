@@ -5,7 +5,7 @@ volumes:
   media-data:
     driver_opts:
       type: "nfs"
-      o: "addr=192.168.1.123,nolock,soft,rw"
+      o: "addr=192.168.0.123,nolock,soft,rw"
       device: ":media-data/"
 
 services:
