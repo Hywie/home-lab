@@ -102,7 +102,7 @@ services:
     tty: true
     volumes:
       - /docker/appdata/qbittorrent:/config
-      - torrent-downloads:/data/downloads:rw
+      - media-data:/data:rw
 
   overseerr:
     image: sctx/overseerr:latest
