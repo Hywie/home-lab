@@ -34,8 +34,8 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=65534
+      - PGID=65534
       - TZ=Europe/London
     volumes:
       - /docker/appdata/prowlarr:/config
@@ -53,8 +53,8 @@ services:
     ports:
       - 7878:7878
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=65534
+      - PGID=65534
       - TZ=Europe/London
     dns: 8.8.8.8
     volumes:
@@ -71,8 +71,8 @@ services:
     ports:
       - 8989:8989
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=65534
+      - PGID=65534
       - TZ=Europe/London
     dns: 8.8.8.8
     volumes:
@@ -83,8 +83,8 @@ services:
   qbittorrent:
     container_name: qbittorrent
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=65534
+      - PGID=65534
       - QBT_EULA=accept
       - TZ=Europe/London
     image: qbittorrentofficial/qbittorrent-nox:latest
