@@ -6,7 +6,7 @@ volumes:
     driver_opts:
       type: "nfs"
       o: "addr=192.168.0.123,nolock,soft,rw"
-      device: ":media-data/"
+      device: ":/media-data"
 
 services:
   # flaresolverr is a proxy to help bypass Cloudflare and DDoS-GUARD protection
