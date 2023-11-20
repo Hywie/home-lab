@@ -8,6 +8,12 @@ volumes:
       o: "addr=192.168.0.123,nfsvers=4"
       device: ":/media-data"
 
+  torrent-downloads:
+    driver_opts:
+      type: "nfs"
+      o: "addr=192.168.0.123,nfsvers=4"
+      device: ":/media-data/downloads"
+
 services:
   # flaresolverr is a proxy to help bypass Cloudflare and DDoS-GUARD protection
   flaresolverr:
@@ -96,7 +102,7 @@ services:
     tty: true
     volumes:
       - /docker/appdata/qbittorrent:/config
-      - media-data/downloads:/data/downloads:rw
+      - torrent-downloads:/data/downloads:rw
 
   overseerr:
     image: sctx/overseerr:latest
