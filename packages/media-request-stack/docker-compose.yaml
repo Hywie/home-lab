@@ -74,29 +74,29 @@ services:
       - /docker/appdata/sonarr:/config
       - media-data:/data:rw
 
-  # qbittorrent:
-  #   container_name: qbittorrent
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - QBT_EULA=accept
-  #     - TZ=Europe/London
-  #   image: qbittorrentofficial/qbittorrent-nox:latest
-  #   ports:
-  #     # for bittorrent traffic
-  #     - 6881:6881/tcp
-  #     - 6881:6881/udp
-  #     # for WebUI
-  #     - 8080:8080/tcp
-  #   dns: 8.8.8.8
-  #   read_only: true
-  #   restart: unless-stopped
-  #   tmpfs:
-  #     - /tmp
-  #   tty: true
-  #   volumes:
-  #     - /docker/appdata/qbittorrent:/config
-  #     - media-data/downloads:/data/downloads:rw
+  qbittorrent:
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - QBT_EULA=accept
+      - TZ=Europe/London
+    image: qbittorrentofficial/qbittorrent-nox:latest
+    ports:
+      # for bittorrent traffic
+      - 6881:6881/tcp
+      - 6881:6881/udp
+      # for WebUI
+      - 8080:8080/tcp
+    dns: 8.8.8.8
+    read_only: true
+    restart: unless-stopped
+    tmpfs:
+      - /tmp
+    tty: true
+    volumes:
+      - /docker/appdata/qbittorrent:/config
+      - media-data/downloads:/data/downloads:rw
 
   overseerr:
     image: sctx/overseerr:latest
