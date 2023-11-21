@@ -1,19 +1,5 @@
 version: "3.7"
 
-# store all data in an NFS to seperate data and servers
-volumes:
-  media-data:
-    driver_opts:
-      type: "nfs"
-      o: "addr=192.168.0.123,nfsvers=4,nolock,soft,rw"
-      device: ":/media-data"
-
-  torrent-downloads:
-    driver_opts:
-      type: "nfs"
-      o: "addr=192.168.0.123,nfsvers=4,nolock,soft,rw"
-      device: ":/media-data/downloads"
-
 services:
   # flaresolverr is a proxy to help bypass Cloudflare and DDoS-GUARD protection
   flaresolverr:
@@ -60,7 +46,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/radarr:/config
-      - media-data:/data:rw
+      - data:/data:rw
 
   sonarr:
     container_name: sonarr
@@ -78,7 +64,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/sonarr:/config
-      - media-data:/data:rw
+      - data:/data:rw
 
   qbittorrent:
     container_name: qbittorrent
@@ -102,7 +88,7 @@ services:
     tty: true
     volumes:
       - /docker/appdata/qbittorrent:/config
-      - media-data:/data:rw
+      - data/downloads:/data/downloads:rw
 
   overseerr:
     image: sctx/overseerr:latest
