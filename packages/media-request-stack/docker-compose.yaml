@@ -46,7 +46,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/radarr:/config
-      - data:/data:rw
+      - /data:/data:rw
 
   sonarr:
     container_name: sonarr
@@ -64,7 +64,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/sonarr:/config
-      - data:/data:rw
+      - /data:/data:rw
 
   qbittorrent:
     container_name: qbittorrent
@@ -88,7 +88,7 @@ services:
     tty: true
     volumes:
       - /docker/appdata/qbittorrent:/config
-      - data/downloads:/data/downloads:rw
+      - /data/downloads:/data/downloads:rw
 
   overseerr:
     image: sctx/overseerr:latest
