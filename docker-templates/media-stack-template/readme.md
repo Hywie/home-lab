@@ -14,9 +14,9 @@ This deploys all the STARR services on a shared docker bridge. I've also added o
 
 # File Structure
 
-The template uses the below file structure, with hard links, to organize content. This allows the us of local storage or a Network File System (NFS) share.
+The template uses the below file structure, with hard links, to organize content. This allows the user of local storage or a Network File System (NFS) share.
 
-The benefit of using hard links, unlike a soft link, if the original file is deleted, the data still exists under the secondary hard link. This allows files to live in both downloads and media without taking up any additional space. It also means we can allow our download client, qBittorrent, to delete the file in the downloads directory without it affecting the link in the media file.
+The benefit of using hard links, unlike a soft link, is if the original file is deleted, the data still exists under the secondary hard link. This allows files to live in both downloads and media without taking up any additional space. It also means we can allow our download client, qBittorrent, to delete the file in the downloads directory without it affecting the link in the media file.
 
 ```
 data
