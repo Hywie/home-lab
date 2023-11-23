@@ -1,6 +1,6 @@
 # Intro
 
-This deploys all the STARR services on a shared docker bridge. I've also added overseer which allows a single place to browse and request content, all authenticated through plex or local basic accounts.
+This deploys all the STARR services on a shared docker bridge. I've also added overseer which allows a single place to browse and request content, all authenticated through plex or local accounts.
 
 # Services Deployed
 
