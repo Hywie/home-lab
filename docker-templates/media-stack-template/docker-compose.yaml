@@ -1,4 +1,4 @@
-version: "3.7"
+version: '3.7'
 
 services:
   # flaresolverr is a proxy to help bypass Cloudflare and DDoS-GUARD protection
@@ -11,11 +11,11 @@ services:
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
       - TZ=Europe/London
     ports:
-      - "${PORT:-8191}:8191"
+      - '${PORT:-8191}:8191'
     dns: 8.8.8.8
-    restart: unless-stopped    
+    restart: unless-stopped
 
-  # site/rss indexer that can be connected to sonarr & radarr
+  # site indexer that can be connected to sonarr & radarr
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -28,8 +28,9 @@ services:
     ports:
       - 9696:9696
     dns: 8.8.8.8
-    restart: unless-stopped    
+    restart: unless-stopped
 
+  # movie collection manager
   radarr:
     container_name: radarr
     image: cr.hotio.dev/hotio/radarr:latest
@@ -48,6 +49,7 @@ services:
       - /docker/appdata/radarr:/config
       - /data:/data:rw
 
+  # tv collection manager
   sonarr:
     container_name: sonarr
     image: cr.hotio.dev/hotio/sonarr:latest
@@ -66,6 +68,7 @@ services:
       - /docker/appdata/sonarr:/config
       - /data:/data:rw
 
+  # torrent client
   qbittorrent:
     container_name: qbittorrent
     environment:
@@ -90,6 +93,7 @@ services:
       - /docker/appdata/qbittorrent:/config
       - /data/downloads:/data/downloads:rw
 
+  # provides a nice website to request movies/tv
   overseerr:
     image: sctx/overseerr:latest
     dns: 8.8.8.8
@@ -104,7 +108,26 @@ services:
       - /docker/appdata/overseerr:/app/config
     restart: unless-stopped
 
+  # manages media/streaming
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    dns: 8.8.8.8
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - VERSION=docker
+    volumes:
+      - /docker/appdata/plex/config:/config
+      - /docker/appdata/plex/transcode:/transcode
+      - data/media/tv:/tv
+      - data/media/movies:/movies
+    restart: unless-stopped
+
+# create a dedicated bridge for the stack
 networks:
   default:
-    name: media-request-bridge
+    name: media-stack-bridge
     driver: bridge
