@@ -122,8 +122,8 @@ services:
     volumes:
       - /docker/appdata/plex/config:/config
       - /docker/appdata/plex/transcode:/transcode
-      - data/media/tv:/tv
-      - data/media/movies:/movies
+      - /data/media/tv:/tv
+      - /data/media/movies:/movies
     restart: unless-stopped
 
 # create a dedicated bridge for the stack
