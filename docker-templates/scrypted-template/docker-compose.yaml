@@ -64,18 +64,5 @@ services:
       # The auto update port 10444 can be configured
       # Must match the port in the auto update url above.
       - 10444:8080
-    networks:
-      - proxy-bridge
-      - default
     # check for updates once an hour (interval is in seconds)
     command: --interval 3600 --cleanup --scope scrypted
-
-# create a dedicated bridge for the stack
-networks:
-  default:
-    name: scrypted-stack-bridge
-    driver: bridge
-
-  proxy-bridge:
-    name: proxy-bridge
-    external: true
