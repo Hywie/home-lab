@@ -19,6 +19,9 @@ services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
+    networks:
+      - proxy-bridge
+      - media-stack-bridge
     environment:
       - PUID=1000
       - PGID=1000
@@ -39,6 +42,9 @@ services:
       driver: json-file
     ports:
       - 7878:7878
+    networks:
+      - proxy-bridge
+      - media-stack-bridge
     environment:
       - PUID=1000
       - PGID=1000
@@ -58,6 +64,9 @@ services:
       driver: json-file
     ports:
       - 8989:8989
+    networks:
+      - proxy-bridge
+      - media-stack-bridge
     environment:
       - PUID=1000
       - PGID=1000
@@ -104,6 +113,9 @@ services:
       - PORT=5055
     ports:
       - 5055:5055
+    networks:
+      - proxy-bridge
+      - media-stack-bridge
     volumes:
       - /docker/appdata/overseerr:/app/config
     restart: unless-stopped
@@ -131,3 +143,7 @@ networks:
   default:
     name: media-stack-bridge
     driver: bridge
+
+  proxy-bridge:
+    name: proxy-bridge
+    external: true
