@@ -12,6 +12,11 @@ services:
     networks:
       - proxy-bridge
       - default
+
+    ports:
+      - 11080:11080
+      - 10443:10443
+
     devices: []
 
     # uncomment the common systems devices to pass
