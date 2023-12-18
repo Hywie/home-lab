@@ -21,7 +21,7 @@ services:
     container_name: prowlarr
     networks:
       - proxy-bridge
-      - media-stack-bridge
+      - default
     environment:
       - PUID=1000
       - PGID=1000
@@ -44,7 +44,7 @@ services:
       - 7878:7878
     networks:
       - proxy-bridge
-      - media-stack-bridge
+      - default
     environment:
       - PUID=1000
       - PGID=1000
@@ -66,7 +66,7 @@ services:
       - 8989:8989
     networks:
       - proxy-bridge
-      - media-stack-bridge
+      - default
     environment:
       - PUID=1000
       - PGID=1000
@@ -115,7 +115,7 @@ services:
       - 5055:5055
     networks:
       - proxy-bridge
-      - media-stack-bridge
+      - default
     volumes:
       - /docker/appdata/overseerr:/app/config
     restart: unless-stopped
