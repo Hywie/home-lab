@@ -9,13 +9,7 @@ services:
     volumes:
       # Volume for the Scrypted database.
       - /docker/scrypted/volume:/server/volume
-    networks:
-      - proxy-bridge
-      - default
-
-    ports:
-      - 11080:11080
-      - 10443:10443
+    network_mode: host
 
     devices: []
 
