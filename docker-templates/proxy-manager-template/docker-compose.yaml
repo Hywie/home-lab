@@ -14,3 +14,8 @@ services:
     volumes:
       - /docker/appdata/nginx/data:/data
       - /docker/appdata/nginx/letsencrypt:/etc/letsencrypt
+
+networks:
+  media-stack-bridge:
+    name: media-stack-bridge
+    external: true
